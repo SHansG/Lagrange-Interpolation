@@ -12,9 +12,9 @@ float* get_tab(int size)
 	return tab;
 }
 
-float interpolate(float* x, float* y, int size, float& interpolation_point)
+float interpolate(float* x, float* y, int &size, float& point)
 {
-	float p, interpolation_value = 0;
+	float p, value = 0;
 	for (int i = 0; i < size; i++)
 	{
 		p = 1;
@@ -22,12 +22,12 @@ float interpolate(float* x, float* y, int size, float& interpolation_point)
 		{
 			if (i != j)
 			{
-				p = p * (interpolation_point - x[j]) / (x[i] - x[j]);
+				p = p * (point - x[j]) / (x[i] - x[j]);
 			}
 		}
-		interpolation_value += p * y[i];
+		value += p * y[i];
 	}
-	return interpolation_value;
+	return value;
 }
 
 float find_min_value(float* tab, int size)
@@ -55,7 +55,7 @@ int main()
 	int n = 0;
 	float* x;
 	float* y;
-	float interpolation_point;
+	float point;
 	float result;
 	float min, max;
 	cout << "Podaj ilosc punktow: ";
@@ -73,19 +73,19 @@ int main()
 		cin >> y[i];
 	}
 	cout << "Podaj punkt interpolacyjny: ";
-	cin >> interpolation_point;
-	result = interpolate(x, y, n, interpolation_point);
+	cin >> point;
+	result = interpolate(x, y, n, point);
 
 	max = find_max_value(x, n);
 	min = find_min_value(x, n);
 
-	if (interpolation_point > max || interpolation_point < min)
+	if (point > max || point < min)
 	{
-		cout << "Wartosc ekstrapolowana w punkcie " << interpolation_point << " wynosi " << result;
+		cout << "Wartosc ekstrapolowana w punkcie " << point << " wynosi " << result;
 	}
 	else
 	{
-		cout << "Wartosc interpolowana w punkcie " << interpolation_point << " wynosi " << result;
+		cout << "Wartosc interpolowana w punkcie " << point << " wynosi " << result;
 	}
 	delete[] x;
 	delete[] y;
